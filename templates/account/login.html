@@ -1,0 +1,52 @@
+{% extends "account/base.html" %}
+{% load crispy_forms_tags %}
+
+{% load i18n %}
+{% load account socialaccount %}
+
+{% block head_title %}{% trans "Sign In" %}{% endblock %}
+
+{% block content %}
+
+  <h1>{% trans "Login" %}</h1>
+
+  {% get_providers as socialaccount_providers %}
+
+  {% if socialaccount_providers %}
+
+<div class="socialaccount_ballot">
+  <div class="row">
+    <a class="btn btn-google" href="{% provider_login_url 'google'  %}" role="button" style="text-transform:none">
+      <img width="20px" style="margin-bottom:3px; margin-right:5px" alt="Google sign-in" src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/512px-Google_%22G%22_Logo.svg.png" />
+      Login with Google
+    </a>
+  </div>
+  <div class="login-or">{% trans 'or' %}</div>
+</div>
+
+{% include "socialaccount/snippets/login_extra.html" %}
+
+<p>{% blocktrans %}Want an account with us and don't have one?
+<a href="{{ signup_url }}">Sign Up</a>{% endblocktrans %}</p>
+{% endif %}
+<div class="col-md-6">
+  <form class="login" method="POST" action="{% url 'account_login' %}">
+    <div class="row">
+      {% csrf_token %}
+      {{ form | crispy }}
+      {% if redirect_field_value %}
+      <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+      {% endif %}
+    </div>
+    <div class="row">
+        <a class="secondaryAction" href="{% url 'account_reset_password' %}">{% trans "Forgot Password?" %}</a>
+    </div>
+    <div class="row">
+      <div class="col-md-12 text-center">
+        <button class="primaryAction" type="submit">{% trans "Login" %}</button>
+      </div>
+    </div>
+  </form>
+</div>
+
+{% endblock %}

@@ -1,0 +1,238 @@
+html,
+body {
+  height: 100%;
+  margin: 0;
+}
+:root {
+	--back: rgb(54, 53, 51);
+	--back-trans: rgb(54, 53, 51, 0.8);
+	--front: #fff;
+	--text: "Lato";
+	--shadow: rgba(54, 53, 51, 0.6);
+	--gray: rgba(184, 184, 184, 0.4);
+	--green: rgb(85, 168, 64);
+	--red: rgb(186, 56, 56);
+}
+@font-face {
+	font-family: "Lato";
+	src: url("assets/fonts/Lato.ttf");
+}
+body {
+	/*background-image: url('');*/
+}
+a {
+	color: var(--back-trans);
+	font-family: var(--text);
+	text-decoration: none;
+	transition: 0.2s;
+}
+a:hover {
+	color: black;
+}
+.button,
+button {
+	background-color: var(--back);
+	color: var(--front);
+	padding: 8px;
+	padding-right: 15px;
+	padding-left: 15px;
+	border: none;
+	border-radius: 5px;
+	transition: 0.2s;
+}
+.button:hover,
+button:hover {
+	background-color: black;
+	color: var(--front);
+}
+input[type=checkbox]:focus {
+	border-color: black;
+	box-shadow: 0 0 0 1px black;
+}
+input[type=checkbox]:checked {
+	border-color: black;
+	background-color: var(--back);
+	box-shadow: none;
+}
+.container {
+	margin-top: 10%;
+	padding-top: 60px;
+	padding-bottom: 60px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+.container > h1 {
+	text-decoration: underline;
+	padding-bottom: 10px;
+}
+.underline {
+	position: relative;
+	background-color: var(--front);
+	width: 0;
+	height: 1px;
+	transition: 0.2s;
+}
+.brand-logo {
+	width: 35px;
+}
+.navbar {
+	background-color: var(--back);
+}
+.navbar-brand {
+	padding-right: 10px;
+	padding-left: 10px;
+}
+.form-control {
+	margin-bottom: 10px;
+}
+.form-control:focus {
+	border-color: black;
+  box-shadow: 0 0 0 1px black;
+}
+.row {
+	padding-bottom: 10px !important;
+}
+.row > input {
+	padding-bottom: 10px !important;
+}
+.login-or {
+	padding-bottom: 10px !important;
+	text-align: center;
+}
+.btn-google {
+	border: solid 1px black;
+}
+.btn-google:hover {
+	background-color: var(--gray);
+}
+.dropdown-item:focus {
+	color: var(--front);
+	background-color: var(--back);
+}
+.profile-container {
+	margin-top: 0;
+	width: 100%;
+}
+.nav-tabs {
+	width: 100%;
+}
+.nav-tabs > li > a {
+	color: var(--back-trans);
+}
+.nav-tabs > li > a:hover {
+	color: var(--back);
+	background-color: var(--gray);
+}
+.nav-tabs .nav-item .nav-link.active {
+	color: var(--front);
+	background-color: var(--back);
+}
+.profile-info {
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+	text-align: center;
+	border: solid 1px var(--gray);
+	padding-right: 30px;
+	margin-bottom: 20px;
+}
+.profile-photo {
+	width: 100px;
+	margin: 30px;
+}
+.tab-content {
+	width: 100%;
+}
+.alert {
+	padding: 0px;
+}
+.close,
+.close:hover {
+	background-color: transparent;
+	color: inherit;
+}
+.username {
+	color: var(--back-trans);
+}
+.custom-file {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+}
+.custom-file-input button {
+	background-color: red;
+}
+.profile-heading {
+	width: 100%;
+	border-bottom: solid 1px var(--gray);
+	margin-bottom: 20px;
+}
+.card-container {
+	margin-top: 0;
+}
+.card-header,
+.card-footer {
+	background-color: var(--gray);
+	color: var(--back-trans);
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+}
+.card-title {
+	margin: 0;
+	color: var(--back);
+}
+.card-title > h5 {
+	margin-left: 5px;
+	margin-right: 5px;
+	margin-bottom: 0;
+	margin-top: 0;
+}
+.card-title > p{
+	margin: 0;
+}
+.hello {
+	margin-left: 0;
+}
+.id-label {
+	display: flex;
+	padding-left: 10px;
+	padding-right: 10px;
+	margin-bottom: 10px;
+	align-items: center;
+	justify-content: center;
+	text-align: center;
+	background-color: var(--gray);
+	width: 150px;
+	font-size: small;
+}
+.empty-mssg {
+	font-size: 20px;
+}
+.empty-mssg > p > a {
+	color: var(--back-trans);
+	text-decoration: underline;
+}
+.dropdown-divider {
+	width: 100%;
+	height: 1px;
+	background-color: var(--gray);
+}
+.card-loan-id {
+	padding-right: 10px;
+	color: var(--back-trans);
+}
+.accept {
+	background-color: var(--green);
+}
+.reject {
+	background-color: var(--red);
+}
+.original-label {
+	font-size: small;
+	padding-right: 10px;
+	color: var(--back-trans);
+}

@@ -1,0 +1,16 @@
+{% extends "my_offers.html" %}
+{% block title %}C2CLoans &#8212; {{ user.username }} &#8212; sent offers{% endblock %}
+
+{% block username_label %}Offered to{% endblock %}
+{% block fullname_label %}Applicant name{% endblock %}
+{% block extra_header_actions %}{% endblock %}
+{% block with_outer_block %}
+
+{% with loan=offer.loan user=offer.borrowing_user %}
+
+{% block with_inner_block %}
+{{ block.super }}
+{% endblock %}
+{% endwith %}
+
+{% endblock %}

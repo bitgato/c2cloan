@@ -1,0 +1,15 @@
+{% extends "home.html" %}
+{% block title %}C2CLoans &#8212; {{ user.username }} &#8212; my loans{% endblock %}
+{% block header_action %}
+#
+{% endblock %}
+{% block extra_header_actions %}
+{% endblock %}
+{% block header_action_text %}
+Check Offers
+{% endblock %}
+{% block empty_message %}
+<div class="empty-mssg">
+	<p>Nothing here. <a href="{% url 'core:apply_loan' %}">Apply</a> for your first loan</p>
+</div>
+{% endblock %}

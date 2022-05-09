@@ -1,0 +1,64 @@
+{% extends "home.html" %}
+{% block title %}C2CLoans &#8212; {{ user.username }} &#8212; my offers{% endblock %}
+{% block content %}
+{% for offer in offers %}
+{% block with_outer_block %}
+{% with loan=offer.loan user=offer.offering_user %}
+{% block with_inner_block %}
+<div class="card w-100 shadow-sm">
+  <div class="card-header">
+    <div class="col card-title d-flex flex-row align-items-center">
+    	<p class="original-label">original</p>
+    	<p>&#x20B9;</p>
+    	<h5>{{ loan.amount }}</h5>
+    	<p>&#64;</p>
+    	<h5>{{ loan.interest_rate }}&percnt;</h5>
+    	<p>for</p>
+    	<h5>{{ loan.tenure }}</h5>
+    	<p>months</p>
+    </div>
+    <div class="col text-center">
+    	<p class="m-0">id: {{ loan.loan_id }}</p>
+    </div>
+    <div class="col text-end">
+		{% block extra_header_actions %}
+    	<a class="button accept" href="#">Accept</a>
+    	<a class="button reject" href="#">Reject</a>
+    {% endblock %}
+    </div>
+  </div>
+  <div class="card-body row">
+  	<div class="col-sm-2 d-flex justify-content-center">
+	  	<img  style="height: 100%; width: 100%; object-fit: contain" src="{{ user.profile.photo.url }}">
+	</div>
+	<div class="col-sm-10 align-self-center">
+		<div class="d-flex">
+			<div class="id-label">{% block username_label %}Offer from{% endblock %}</div>
+			<input disabled="true" class="form-control" value="{{ user.username }}">
+		</div>
+		<div class="d-flex">
+			<div class="id-label">{% block fullname_label %}Lender name{% endblock %}</div>
+			<input disabled="true" class="form-control" value="{{ user.profile.first_name }}{% if user.profile.middle_name %} {{ user.profile.middle_name }}{% endif %} {{ user.profile.last_name }}">
+		</div>
+		<div class="d-flex">
+			<div class="id-label">Offered tenure</div>
+			<input disabled="true" class="form-control" value="{{ offer.tenure }}">
+		</div>
+		<div class="d-flex">
+			<div class="id-label">Offered rate</div>
+			<input disabled="true" class="form-control" value="{{ offer.interest_rate }}%">
+		</div>
+	</div>
+  </div>
+</div>
+{% endblock %}
+{% endwith %}
+{% endblock %}
+{% empty %}
+{% block empty_message %}
+<div class="empty-mssg">
+	<p>Nothing here</p>
+</div>
+{% endblock %}
+{% endfor %}
+{% endblock %}
