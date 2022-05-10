@@ -147,8 +147,7 @@ def modify_loan(request):
 				modified_loan.save()
 				messages.success(request, "Sent offer for the modified loan")
 				return redirect('core:home')
-			else:
-				context['l_form'] = l_form
+			context['l_form'] = l_form
 		return render(request, "modify_loan.html", context)
 	else:
 		messages.error(request, "No valid loan id provided")
@@ -179,12 +178,10 @@ def accept_loan(request):
 				loan.save()
 				messages.success(request, "Accepted the loan")
 				return redirect('core:home')
-			else:
-				context['l_form'] = l_form
+			context['l_form'] = l_form
 		return render(request, "accept_loan.html", context)
-	else:
-		if not loan_id:
-			messages.error(request, "No valid loan id provided")
-		if not accepted:
-			messages.error(request, "Please confirm accepting the loan")
-		return redirect('core:home')
+	if not loan_id:
+		messages.error(request, "No valid loan id provided")
+	if not accepted:
+		messages.error(request, "Please confirm accepting the loan")
+	return redirect('core:home')
