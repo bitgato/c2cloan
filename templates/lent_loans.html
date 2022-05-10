@@ -11,10 +11,10 @@
 {% block pagination %}
 <div class="mt-3">
 	{% if loans.has_previous %}
-	<a class="btn-link" href="{% block prev_page_url %}{% url 'core:my_loans_page' loans.previous_page_number %}{% endblock %}">Previous Page</a>
+	<a class="btn-link" href="{% block prev_page_url %}{% url 'core:lent_loans_page' loans.previous_page_number %}{% endblock %}">Previous Page</a>
 	{% endif %}
 	{% if loans.has_next %}
-	<a class="btn-link" href="{% block next_page_url %}{% url 'core:my_loans_page' loans.next_page_number %}{% endblock %}">Next Page</a>
+	<a class="btn-link" href="{% block next_page_url %}{% url 'core:lent_loans_page' loans.next_page_number %}{% endblock %}">Next Page</a>
 	{% endif %}
 </div>
 {% endblock %}

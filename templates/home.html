@@ -44,10 +44,12 @@
 			<div class="id-label">Name</div>
 			<input disabled="true" class="form-control" value="{{ loan.borrowing_user.profile.first_name }}{% if loan.borrowing_user.profile.middle_name %} {{ loan.borrowing_user.profile.middle_name }}{% endif %} {{ loan.borrowing_user.profile.last_name }}">
 		</div>
+		{% block third_field %}
 		<div class="d-flex">
 			<div class="id-label">CIBIL score</div>
 			<input disabled="true" class="form-control" value="{% if loan.borrowing_user.profile.cibil_score %}{{ loan.borrowing_user.profile.cibil_score }}{% else %}{{ loan.borrowing_user.username }} cibil{% endif %}">
 		</div>
+		{% endblock %}
 		<div class="d-flex">
 			<div class="id-label">Applied on</div>
 			<input disabled="true" class="form-control" value="{{ loan.date_applied }}">
