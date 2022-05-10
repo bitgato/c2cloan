@@ -44,7 +44,7 @@
 		</div>
 		<div class="d-flex">
 			<div class="id-label">CIBIL score</div>
-			<input disabled="true" class="form-control" value="{{ loan.borrowing_user.username }}">
+			<input disabled="true" class="form-control" value="{% if loan.borrowing_user.profile.cibil_score %}{{ loan.borrowing_user.profile.cibil_score }}{% else %}{{ loan.borrowing_user.username }} cibil{% endif %}">
 		</div>
 		<div class="d-flex">
 			<div class="id-label">Applied on</div>
