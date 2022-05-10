@@ -3,10 +3,10 @@
 </p>
 <h1 align="center">c2cloan</h1>
 <p align="center">
-  A customer-to-customer loan providing web application.
-</p>
-
+A customer-to-customer loan providing web application.
+<br>
 https://c2cloan.herokuapp.com
+</p>
 <br>
 Sign up and apply for a loan that other users can see. Other users have choices
 for accepting, rejecting or modifiying your loan application. If you modify an
