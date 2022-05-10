@@ -171,11 +171,12 @@ def modify_loan(request):
 			if l_form.is_valid():
 				new_tenure = l_form.cleaned_data['tenure']
 				new_rate = l_form.cleaned_data['interest_rate']
-				if new_tenure == loan.tenure or new_rate == loan.interest_rate:
+				if new_tenure == loan.tenure and new_rate == loan.interest_rate:
 					messages.error(request, "Please modify one or both of the fields")
 					return render(request, "modify_loan.html", context)
 				modified_loan = l_form.save(commit=False)
 				modified_loan.loan = loan
+				modified_loan.borrowing_user = loan.borrowing_user
 				modified_loan.offering_user = request.user
 				modified_loan.save()
 				messages.success(request, "Sent offer for the modified loan")
@@ -237,3 +238,36 @@ def reject_loan(request, loan_id=0):
 	rejected_loan.save()
 	messages.info(request, f"Rejected loan #{loan_id}")
 	return redirect('core:home')
+
+@login_required
+def accept_offer(request, offer_id=0):
+	offer = models.ModifiedLoan.objects.filter(offer_id=offer_id)
+	if not offer:
+		messages.error(request, "No valid offer id provided")
+		return redirect('core:home')
+	offer = offer[0]
+	if offer.offering_user == request.user:
+		messages.error(request, "Cannot accept own offer")
+		return redirect('core:home')
+	loan = offer.loan
+	loan.tenure = offer.tenure
+	loan.interest_rate = offer.interest_rate
+	loan.lending_user = offer.offering_user
+	loan.save()
+	offer.delete()
+	messages.info(request, f"Accepted offer #{offer_id}")
+	return redirect('core:my_offers')
+
+@login_required
+def reject_offer(request, offer_id=0):
+	offer = models.ModifiedLoan.objects.filter(offer_id=offer_id)
+	if not offer:
+		messages.error(request, "No valid offer id provided")
+		return redirect('core:home')
+	offer = offer[0]
+	if offer.offering_user == request.user:
+		messages.error(request, "Cannot reject own offer")
+		return redirect('core:home')
+	offer.delete()
+	messages.info(request, f"Rejected offer #{offer_id}")
+	return redirect('core:my_offers')

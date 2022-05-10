@@ -25,4 +25,8 @@ urlpatterns = [
 	path('accept-loan/', views.accept_loan, name='accept_loan'),
 	path('reject-loan/', views.reject_loan, name='reject_loan'),
 	path('reject-loan/<int:loan_id>', views.reject_loan, name='reject_loan'),
+	path('reject-offer/', views.reject_offer, name='reject_offer'),
+	path('reject-offer/<int:offer_id>', views.reject_offer, name='reject_offer'),
+	path('accept-offer/', views.accept_offer, name='accept_offer'),
+	path('accept-offer/<int:offer_id>', views.accept_offer, name='accept_offer'),
 ]

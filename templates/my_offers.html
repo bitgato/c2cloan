@@ -23,8 +23,8 @@
     </div>
     <div class="col text-end">
 		{% block extra_header_actions %}
-    	<a class="button accept" href="#">Accept</a>
-    	<a class="button reject" href="#">Reject</a>
+    	<a class="button accept" href="{% url 'core:accept_offer' offer.offer_id %}">Accept</a>
+    	<a class="button reject" href="{% url 'core:reject_offer' offer.offer_id %}">Reject</a>
     {% endblock %}
     </div>
   </div>
