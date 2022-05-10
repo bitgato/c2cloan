@@ -1,19 +1,27 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
+from django.db.models import Q
+from django.core.paginator import Paginator
 from . import models
 from django.http import HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 from .forms import UserUpdateForm, ProfileUpdateForm, ApplyLoanForm, ModifyLoanForm
 
-def home(request):
+def home(request, page=1):
+	loans = []
+	q1 = Q(borrowing_user=request.user)
+	q2 = Q(lending_user__isnull=False)
 	if request.user.is_authenticated:
-		context = {
-			'loans': models.Loan.objects.exclude(borrowing_user=request.user)
-		}
+		# Exclude loans where the borrowing user is the current user or loans
+		# which have been accepted already
+		loans = models.Loan.objects.exclude(q1 | q2)
 	else:
-		context = {
-			'loans': models.Loan.objects.all()
-		}
+		loans = models.Loan.objects.exclude(q2)
+	paginator = Paginator(loans, per_page=10)
+	loans = paginator.get_page(page)
+	context = {
+		'loans': loans
+	}
 	return render(request, "home.html", context)
 
 @login_required
@@ -61,23 +69,32 @@ def apply_loan(request):
 	return render(request, "apply.html", context)
 
 @login_required
-def my_loans(request):
+def my_loans(request, page=1):
+	loans = models.Loan.objects.filter(borrowing_user=request.user)
+	paginator = Paginator(loans, per_page=10)
+	loans = paginator.get_page(page)
 	context = {
-		'loans': models.Loan.objects.filter(borrowing_user=request.user)
+		'loans': loans
 	}
 	return render(request, "my_loans.html", context)
 
 @login_required
-def my_offers(request):
+def my_offers(request, page=1):
+	offers = models.ModifiedLoan.objects.filter(borrowing_user=request.user)
+	paginator = Paginator(offers, per_page=10)
+	offers = paginator.get_page(page)
 	context = {
-		'offers': models.ModifiedLoan.objects.filter(borrowing_user=request.user)
+		'offers': offers
 	}
 	return render(request, "my_offers.html", context)
 
 @login_required
-def sent_offers(request):
+def sent_offers(request, page=1):
+	offers = models.ModifiedLoan.objects.filter(offering_user=request.user)
+	paginator = Paginator(offers, per_page=10)
+	offers = paginator.get_page(page)
 	context = {
-		'offers': models.ModifiedLoan.objects.filter(offering_user=request.user)
+		'offers': offers
 	}
 	return render(request, "sent_offers.html", context)
 

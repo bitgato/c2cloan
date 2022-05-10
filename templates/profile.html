@@ -1,30 +1,9 @@
 {% extends 'account/base.html' %}
 {% load crispy_forms_tags %}
 {% block title %}C2CLoans &#8212; {{ user.username }}'s profile{% endblock %}
+{% block page_heading %}My Profile{% endblock %}
 {% block extra_container_class %} profile-container {% endblock %}
 {% block content %}
-<div class="profile-info w-100 shadow-sm">
-  <img class="rounded-circle profile-photo" src="{{ user.profile.photo.url }}">
-  <div>
-    <div class="text-start">
-      <h4>
-        {% if user.profile.first_name %}
-        {{ user.profile.first_name }}
-        {% if user.profile.middle_name %} {{ user.profile.middle_name }} {% endif %}
-        {{ user.profile.last_name }}
-        {% else %}
-        Guest
-        {% endif %}
-      </h4>
-    </div>
-    <div class="username text-start">
-      <p>{{ user.username }}{% if user.email %} &#8212; {{ user.email }} {% endif %}</p>
-    </div>
-  </div>
-</div>
-<div class="profile-heading">
-  <h4>{% block profile_heading %}My Profile{% endblock %}</h4>
-</div>
 <form class="row" method="POST" enctype="multipart/form-data">
   {% csrf_token %}
   <div class="col-md-12">

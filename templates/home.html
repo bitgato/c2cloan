@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 
+{% block page_heading %}Home{% endblock %}
 {% block extra_container_class %} card-container {% endblock %}
 {% block content %}
 {% for loan in loans %}
@@ -60,4 +61,14 @@
 </div>
 {% endblock %}
 {% endfor %}
+{% block pagination %}
+<div class="mt-3">
+	{% if loans.has_previous %}
+	<button href="{% url 'core:home' loans.previous_page_number %}">Previous Page</button>
+	{% endif %}
+	{% if loans.has_next %}
+	<button href="{% url 'core:home' loans.next_page_number %}">Next Page</button>
+	{% endif %}
+</div>
+{% endblock %}
 {% endblock content %}

@@ -5,9 +5,10 @@ body {
 }
 :root {
 	--back: rgb(54, 53, 51);
-	--back-trans: rgb(54, 53, 51, 0.8);
+	--back-trans: rgba(54, 53, 51, 0.8);
 	--front: #fff;
 	--text: "Lato";
+	--body-back: rgba(199, 199, 199, 0.4);
 	--shadow: rgba(54, 53, 51, 0.6);
 	--gray: rgba(184, 184, 184, 0.4);
 	--green: rgb(85, 168, 64);
@@ -18,7 +19,7 @@ body {
 	src: url("assets/fonts/Lato.ttf");
 }
 body {
-	/*background-image: url('');*/
+	background-color: var(--body-back);
 }
 a {
 	color: var(--back-trans);
@@ -58,10 +59,14 @@ input[type=checkbox]:checked {
 	margin-top: 10%;
 	padding-top: 60px;
 	padding-bottom: 60px;
+	padding-right: 30px;
+	padding-left: 30px;
 	display: flex;
 	flex-direction: column;
-	justify-content: center;
 	align-items: center;
+	min-height: 100%;
+	background-color: white;
+	box-shadow: 0 0 3px 0 var(--shadow);
 }
 .container > h1 {
 	text-decoration: underline;
@@ -138,6 +143,18 @@ input[type=checkbox]:checked {
 	border: solid 1px var(--gray);
 	padding-right: 30px;
 	margin-bottom: 20px;
+	position: relative;
+}
+.signed-in-as {
+	position: absolute;
+	display: flex;
+	align-self: center;
+	top: 0;
+	left: 0;
+	background-color: var(--gray);
+	padding: 3px 10px 5px 10px;
+	margin: 0;
+	border-bottom-right-radius: 5px;
 }
 .profile-photo {
 	width: 100px;
@@ -165,8 +182,9 @@ input[type=checkbox]:checked {
 .custom-file-input button {
 	background-color: red;
 }
-.profile-heading {
+.page-heading {
 	width: 100%;
+	text-align: left;
 	border-bottom: solid 1px var(--gray);
 	margin-bottom: 20px;
 }
