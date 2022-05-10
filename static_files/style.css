@@ -120,12 +120,6 @@ input[type=checkbox]:checked {
 .btn-google:hover {
 	background-color: var(--gray);
 }
-.btn-heroku {
-	border: solid 1px var(--heroku-purple);
-}
-.btn-heroku:hover {
-	background-color: var(--heroku-purple-trans);
-}
 .btn-heroku,
 .btn-github {
 	height: 50px;
