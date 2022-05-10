@@ -24,6 +24,7 @@ See `requirements.txt` for python libraries used
 ### features
 * Login with either Google OAuth or username/password
 * Profile with provided name, email, custom profile picture, bank details, CTC
+* Option to upload Aadhaar, PAN and multiple Salary slips (in image format)
 * Apply for loan which gets displayed on the front page of the website
 * Accept/Reject/Modify other loan applications
 * Modified loan offer shown on profile page
