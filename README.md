@@ -31,7 +31,10 @@ See `requirements.txt` for python libraries used
 * Accepted offer disappears from unrelated user pages
 
 ### running
-Clone this repo. Then run the following commands.
+Clone this repo. Then run the following commands. The `SECRET_KEY` required
+for django has been omitted from the settings file and can instead be provided
+through an environment variable. Make sure your environment variable has a
+`SECRET_KEY` defined, both locally and if deployed remotely.
 ```bash
 $ pip install -r requirements.txt
 $ python manage.py runserver
