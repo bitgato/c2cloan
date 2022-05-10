@@ -149,9 +149,8 @@ def modify_loan(request):
 				return redirect('core:home')
 			context['l_form'] = l_form
 		return render(request, "modify_loan.html", context)
-	else:
-		messages.error(request, "No valid loan id provided")
-		return redirect('core:home')
+	messages.error(request, "No valid loan id provided")
+	return redirect('core:home')
 
 @login_required
 def accept_loan(request):
