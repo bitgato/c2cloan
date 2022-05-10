@@ -1,0 +1,8 @@
+{% extends "profile.html" %}
+{% block btn_txt %}Accept loan{% endblock %}
+{% block title %}C2CLoans &#8212; accept loan{% endblock %}
+{% load crispy_forms_tags %}
+{% block page_heading %}Accept Loan{% endblock %}
+{% block form %}
+{{ l_form | crispy }}
+{% endblock %}

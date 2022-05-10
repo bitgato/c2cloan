@@ -5,7 +5,7 @@ from django.core.paginator import Paginator
 from . import models
 from django.http import HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
-from .forms import UserUpdateForm, ProfileUpdateForm, ApplyLoanForm, ModifyLoanForm
+from .forms import UserUpdateForm, ProfileUpdateForm, ApplyLoanForm, ModifyLoanForm, AcceptLoanForm
 
 def home(request, page=1):
 	loans = []
@@ -105,7 +105,7 @@ def sent_offers(request, page=1):
 @login_required
 def modify_loan(request):
 	loan_id = request.GET.get('id')
-	if loan_id:
+	if loan_id and loan_id.isdigit():
 		if models.ModifiedLoan.objects.filter(loan_id=loan_id).filter(offering_user=request.user):
 			messages.success(request, f"You've already modified and offered loan #{loan_id}")
 			return redirect('core:home')
@@ -138,4 +138,39 @@ def modify_loan(request):
 		return render(request, "modify_loan.html", context)
 	else:
 		messages.error(request, "No valid loan id provided")
+		return redirect('core:home')
+
+@login_required
+def accept_loan(request):
+	loan_id = request.GET.get('id')
+	if loan_id and loan_id.isdigit():
+		if models.Loan.objects.filter(loan_id=loan_id).filter(lending_user=request.user):
+			messages.success(request, f"You've already accepted this loan #{loan_id}")
+			return redirect('core:home')
+		loan = models.Loan.objects.filter(loan_id=loan_id)
+		if not loan:
+			messages.error(request, f"No loan application with id #{loan_id}")
+			return redirect('core:home')
+		loan = loan[0]
+		l_form = AcceptLoanForm(instance=loan)
+		context = {
+			'id': loan_id,
+			'l_form': l_form
+		}
+		if request.method=='POST':
+			l_form = AcceptLoanForm(request.POST, instance=loan)
+			if l_form.is_valid():
+				loan = l_form.save(commit=False)
+				loan.lending_user = request.user
+				loan.save()
+				messages.success(request, "Accepted the loan")
+				return redirect('core:home')
+			else:
+				context['l_form'] = l_form
+		return render(request, "accept_loan.html", context)
+	else:
+		if not loan_id:
+			messages.error(request, "No valid loan id provided")
+		if not accepted:
+			messages.error(request, "Please confirm accepting the loan")
 		return redirect('core:home')

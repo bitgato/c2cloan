@@ -19,12 +19,12 @@
     </div>
     <div class="col text-end">
 		{% block extra_header_actions %}
-    	<a class="button accept" href="#">Accept</a>
+    	<a class="button accept" href="{% url 'core:accept_loan' %}?id={{ loan.loan_id }}">Accept</a>
     	<a class="button reject" href="#">Reject</a>
     	{% endblock %}
     	<a class="button" href="
     	{% block header_action %}
-    	/modify-loan/?id={{ loan.loan_id }}
+    	{% url 'core:modify_loan' %}?id={{ loan.loan_id }}
     	{% endblock %}
     	">{% block header_action_text %}Modify{% endblock %}</a>
     </div>

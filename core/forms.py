@@ -80,3 +80,24 @@ class ModifyLoanForm(forms.ModelForm):
 		super().__init__(*args, **kwargs)
 		self.helper = FormHelper()
 		self.helper.form_tag = False
+
+class AcceptLoanForm(forms.ModelForm):
+	accept = forms.BooleanField()
+	class Meta:
+		model = Loan
+		fields = [
+			'amount',
+			'tenure',
+			'interest_rate',
+			'accept'
+		]
+	def __init__(self, *args, submit_title="Apply", **kwargs):
+		super().__init__(*args, **kwargs)
+		self.helper = FormHelper()
+		self.helper.form_tag = False
+		instance = getattr(self, 'instance', None)
+		if instance and instance.pk:
+			self.fields['amount'].widget.attrs['readonly'] = True
+			self.fields['tenure'].widget.attrs['readonly'] = True
+			self.fields['interest_rate'].widget.attrs['readonly'] = True
+			self.fields['accept'].label = "Accept and provide this loan"

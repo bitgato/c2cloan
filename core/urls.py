@@ -14,4 +14,5 @@ urlpatterns = [
 	path('accounts/profile/my-offers', views.my_offers, name='my_offers'),
 	path('accounts/profile/sent-offers', views.sent_offers, name='sent_offers'),
 	path('modify-loan/', views.modify_loan, name='modify_loan'),
+	path('accept-loan/', views.accept_loan, name='accept_loan'),
 ]

@@ -63,8 +63,8 @@ class Profile(models.Model):
 
 	ctc = models.PositiveIntegerField('CTC', null=True)
 
-	aadhaar_card = models.FileField('Aadhaar card', upload_to='aadhaar_card', blank=True)
-	pan_card = models.FileField('Pan card', upload_to='pan_card', blank=True)
+	aadhaar_card = models.ImageField('Aadhaar card', upload_to='aadhaar_card', blank=True)
+	pan_card = models.ImageField('Pan card', upload_to='pan_card', blank=True)
 
 	cibil_score = models.IntegerField('Cibil score', null=True)
 
@@ -79,4 +79,3 @@ class Profile(models.Model):
 			output_size = (300, 300)
 			photo.thumbnail(output_size)
 			photo.save(self.photo.path)
-
