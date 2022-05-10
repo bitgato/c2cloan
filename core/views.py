@@ -17,6 +17,7 @@ def home(request, page=1):
 		loans = models.Loan.objects.exclude(q1 | q2)
 	else:
 		loans = models.Loan.objects.exclude(q2)
+	loans = list(reversed(loans))
 	paginator = Paginator(loans, per_page=10)
 	loans = paginator.get_page(page)
 	context = {
@@ -71,6 +72,7 @@ def apply_loan(request):
 @login_required
 def my_loans(request, page=1):
 	loans = models.Loan.objects.filter(borrowing_user=request.user)
+	loans = list(reversed(loans))
 	paginator = Paginator(loans, per_page=10)
 	loans = paginator.get_page(page)
 	context = {
@@ -81,6 +83,7 @@ def my_loans(request, page=1):
 @login_required
 def my_offers(request, page=1):
 	offers = models.ModifiedLoan.objects.filter(borrowing_user=request.user)
+	offers = list(reversed(offers))
 	paginator = Paginator(offers, per_page=10)
 	offers = paginator.get_page(page)
 	context = {
@@ -91,6 +94,7 @@ def my_offers(request, page=1):
 @login_required
 def sent_offers(request, page=1):
 	offers = models.ModifiedLoan.objects.filter(offering_user=request.user)
+	offers = list(reversed(offers))
 	paginator = Paginator(offers, per_page=10)
 	offers = paginator.get_page(page)
 	context = {
