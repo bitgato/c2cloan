@@ -42,12 +42,6 @@
             About
           </a>
         </li>
-        <li class="nav-item active">
-          {% url 'core:home' as url %}
-          <a class="nav-link {% if request.path == url %} active {% endif %}" href="{{ url }}">
-            Contact Us
-          </a>
-        </li>
         {% if user.is_authenticated%}
         <li>
           <a class="nav-link dropdown-toggle" href="{% url 'account_login' %}" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
