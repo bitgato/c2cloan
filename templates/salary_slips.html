@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block page_heading %}Old salary slips{% endblock %}
+{% block content %}
+{% if slips|length == 0 %}
+  <p>You haven't uploaded any salary slips yet</p>
+{% else %}
+  <table class="table table-bordered table-striped">
+    <thead class="table-dark">
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Upload date</th>
+        <th scope="col">Link</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for slip in slips %}
+      <tr>
+        <td>{{ slip.slip_id }}</td>
+        <td>{{ slip.upload_date }}</td>
+        <td><a href="{{ slip.image.url }}">Open</a></td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endif %}
+{% endblock %}
