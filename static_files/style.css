@@ -13,6 +13,8 @@ body {
 	--gray: rgba(184, 184, 184, 0.4);
 	--green: rgb(85, 168, 64);
 	--red: rgb(186, 56, 56);
+	--heroku-purple: rgb(67, 0, 152);
+	--heroku-purple-trans: rgba(67, 0, 152, 0.4);
 }
 @font-face {
 	font-family: "Lato";
@@ -110,11 +112,32 @@ input[type=checkbox]:checked {
 	padding-bottom: 10px !important;
 	text-align: center;
 }
+.btn-github,
 .btn-google {
 	border: solid 1px black;
 }
+.btn-github:hover,
 .btn-google:hover {
 	background-color: var(--gray);
+}
+.btn-heroku {
+	border: solid 1px var(--heroku-purple);
+}
+.btn-heroku:hover {
+	background-color: var(--heroku-purple-trans);
+}
+.btn-heroku,
+.btn-github {
+	height: 50px;
+	align-items: center;
+	margin-right: 10px;
+}
+.btn-heroku > img {
+	margin-top: 3px;
+	margin-bottom: 0;
+}
+.btn-github > img {
+	margin-bottom: 0;
 }
 .dropdown-item:focus {
 	color: var(--front);
@@ -257,4 +280,11 @@ input[type=checkbox]:checked {
 	font-size: small;
 	padding-right: 10px;
 	color: var(--back-trans);
+}
+.about-p {
+	font-size: large;
+	color: var(--back-trans);
+}
+.no-min-height {
+	min-height: 0 !important;
 }

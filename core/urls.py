@@ -8,6 +8,7 @@ app_name = 'core'
 urlpatterns = [
 	path('', views.home, name='home'),
 	path('<int:page>', views.home, name='home_page'),
+	path('about', views.about, name='about'),
 	path('favicon.ico', RedirectView.as_view(url=staticfiles_storage.url('favicon.ico'))),
 	path('accounts/profile/', views.profile, name='profile'),
 	path('accounts/profile/apply/', views.apply_loan, name='apply_loan'),

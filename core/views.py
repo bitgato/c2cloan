@@ -25,6 +25,9 @@ def home(request, page=1):
 	}
 	return render(request, "home.html", context)
 
+def about(request):
+	return render(request, "about.html")
+
 @login_required
 def profile(request):
 	if request.method == 'POST':

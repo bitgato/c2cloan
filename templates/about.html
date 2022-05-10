@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block title %}C2Cloans &#8212; about{% endblock %}
+{% block page_heading %}
+About
+{% endblock %}
+{% block extra_container_class %}align-items-start no-min-height{% endblock %}
+{% block content %}
+<div>
+  <h3>A customer-to-customer loan providing web application.</h3>
+  <p class="about-p">Sign up and apply for a loan that other users can see. Other users have choices for accepting, rejecting or modifiying your loan
+  application. If you modify an application and offer it, the original applicant has the option to accept/reject the new terms.</p>
+  <h3>Written by</h3>
+  <p class="about-p">Adnan Aslam (<a style="text-decoration: underline;" href="https://github.com/bitgato">bitgato</a>)</p>
+</div>
+<div class="d-flex flex-row">
+  <a class="btn btn-heroku" href="https://c2cloan.herokuapp.com" role="button" style="text-transform:none">
+    <img width="100px" style="margin-bottom:3px; margin-right:5px" alt="Heroku deployment" src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/ec/Heroku_logo.svg/320px-Heroku_logo.svg.png" />
+  </a>
+  <a class="btn btn-github" href="https://github.com/bitgato/c2cloan" role="button" style="text-transform:none">
+    <img height="35px" style="margin-bottom:3px; margin-right:5px" alt="Github page" src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/Octicons-mark-github.svg/240px-Octicons-mark-github.svg.png" />
+    Github
+  </a>
+  <img height="50px" src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/93/GPLv3_Logo.svg/320px-GPLv3_Logo.svg.png">
+</div>
+{% endblock %}
