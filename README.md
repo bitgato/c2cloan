@@ -29,5 +29,16 @@ See `requirements.txt` for python libraries used
 * Modified loan offer shown on profile page
 * Accepted offer disappears from unrelated user pages
 
+### running
+Clone this repo. Then run the following commands.
+```bash
+$ pip install -r requirements.txt
+$ python manage.py runserver
+````
+
+### authors
+Written by Adnan Aslam ([bitgato](https://github.com/bitgato)) for
+[flipr](https://flipr.ai) 2022 Hackathon
+
 ### license
 This project is released under the GNU GPL v3 license
