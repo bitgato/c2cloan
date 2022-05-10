@@ -53,7 +53,7 @@ def profile(request):
 		p_form = ProfileUpdateForm(request.POST, request.FILES, instance=request.user.profile)
 		s_form = SalarySlipForm(request.POST, request.FILES)
 
-		if u_form.is_valid() and p_form.is_valid():
+		if u_form.is_valid() and p_form.is_valid() and s_form.is_valid():
 			u_form.save()
 			p_form.save()
 			slip = s_form.save(commit=False)
