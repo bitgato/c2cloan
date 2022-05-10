@@ -6,7 +6,8 @@
   A customer-to-customer loan providing web application.
 </p>
 
-[heroku](https://c2cloan.herokuapp.com)
+https://c2cloan.herokuapp.com
+<br>
 Sign up and apply for a loan that other users can see. Other users have choices
 for accepting, rejecting or modifiying your loan application. If you modify an
 application and offer it, the original applicant has the option to
