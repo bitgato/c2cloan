@@ -10,6 +10,8 @@
     {% block form %}
       {% crispy u_form %}
       {% crispy p_form %}
+      {% crispy s_form %}
+      <a href="{% url 'core:salary_slips' %}">See old salary slips</a>
     {% endblock %}
   </div>
   <div class="col-md-12 text-center">

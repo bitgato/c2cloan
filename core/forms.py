@@ -1,17 +1,15 @@
 from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
-from .models import Profile, Loan, ModifiedLoan
+from .models import Profile, Loan, ModifiedLoan, SalarySlip
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Submit, Layout, Div, ButtonHolder, Fieldset
 
 class UserUpdateForm(forms.ModelForm):
 	email = forms.EmailField()
-
 	class Meta:
 		model = User
 		fields = ['email']
-
 	def __init__(self, *args, submit_title="Save", **kwargs):
 		super().__init__(*args, **kwargs)
 		self.helper = FormHelper()
@@ -32,7 +30,6 @@ class ProfileUpdateForm(forms.ModelForm):
 			'aadhaar_card',
 			'pan_card'
 		]
-
 	def __init__(self, *args, submit_title="Save", **kwargs):
 		super().__init__(*args, **kwargs)
 		self.helper = FormHelper()
@@ -54,6 +51,21 @@ class ProfileUpdateForm(forms.ModelForm):
 			Div('ctc'),
 			Div('aadhaar_card', css_class="form-control"),
 			Div('pan_card', css_class="form-control"),
+		)
+
+class SalarySlipForm(forms.ModelForm):
+	class Meta:
+		model = SalarySlip
+		fields = [
+			'image'
+		]
+	def __init__(self, *args, submit_title="Save", **kwargs):
+		super().__init__(*args, **kwargs)
+		self.helper = FormHelper()
+		self.helper.form_tag = False
+		self.fields['image'].label = 'Upload new salary slip'
+		self.helper.layout = Layout(
+			Div('image', css_class="form-control"),
 		)
 
 class ApplyLoanForm(forms.ModelForm):

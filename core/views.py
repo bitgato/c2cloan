@@ -5,16 +5,34 @@ from django.core.paginator import Paginator
 from . import models
 from django.http import HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
-from .forms import UserUpdateForm, ProfileUpdateForm, ApplyLoanForm, ModifyLoanForm, AcceptLoanForm
+from .forms import (
+	UserUpdateForm,
+	ProfileUpdateForm,
+	ApplyLoanForm,
+	ModifyLoanForm,
+	AcceptLoanForm,
+	SalarySlipForm
+)
 
 def home(request, page=1):
 	loans = []
+	# Loans where borrowing user is the current logged in user
 	q1 = Q(borrowing_user=request.user)
+	# Loans where lending user is not null
+	# (Those loans have been accepted by other users)
 	q2 = Q(lending_user__isnull=False)
 	if request.user.is_authenticated:
-		# Exclude loans where the borrowing user is the current user or loans
-		# which have been accepted already
-		loans = models.Loan.objects.exclude(q1 | q2)
+		# This is a little complicated
+		# We filter rejected loans table where the rejecting user is the
+		# current logged in user and create a flat list of loan ids
+		# Then we check if loan id of a loan is present in that list
+		q3 = Q(loan_id__in=(models.RejectedLoan.objects
+			.filter(rejecting_user=request.user)
+			.values_list('loan_id', flat=True))
+		)
+
+		# Exclude loans which satisfy any of the above queries
+		loans = models.Loan.objects.exclude(q1 | q2 | q3)
 	else:
 		loans = models.Loan.objects.exclude(q2)
 	loans = list(reversed(loans))
@@ -33,19 +51,25 @@ def profile(request):
 	if request.method == 'POST':
 		u_form = UserUpdateForm(request.POST, request.FILES, instance=request.user)
 		p_form = ProfileUpdateForm(request.POST, request.FILES, instance=request.user.profile)
+		s_form = SalarySlipForm(request.POST, request.FILES)
 
 		if u_form.is_valid() and p_form.is_valid():
 			u_form.save()
 			p_form.save()
+			slip = s_form.save(commit=False)
+			slip.user = request.user
+			slip.save()
 			messages.success(request, f"Your profile has been updated!")
 			return redirect('core:profile')
 	else:
 		u_form = UserUpdateForm(instance=request.user)
 		p_form = ProfileUpdateForm(instance=request.user.profile)
+		s_form = SalarySlipForm()
 
 	context = {
 		'u_form': u_form,
-		'p_form': p_form
+		'p_form': p_form,
+		's_form': s_form
 	}
 
 	return render(request, 'profile.html', context)
@@ -117,6 +141,15 @@ def sent_offers(request, page=1):
 	return render(request, "sent_offers.html", context)
 
 @login_required
+def salary_slips(request):
+	slips = models.SalarySlip.objects.filter(user=request.user)
+	slips = list(reversed(slips))
+	context = {
+		'slips': slips
+	}
+	return render(request, "salary_slips.html", context)
+
+@login_required
 def modify_loan(request):
 	loan_id = request.GET.get('id')
 	if loan_id and loan_id.isdigit():
@@ -164,6 +197,9 @@ def accept_loan(request):
 			messages.error(request, f"No loan application with id #{loan_id}")
 			return redirect('core:home')
 		loan = loan[0]
+		if loan.borrowing_user == request.user:
+			messages.error(request, "Cannot accept own loan")
+			return redirect('core:home')
 		l_form = AcceptLoanForm(instance=loan)
 		context = {
 			'id': loan_id,
@@ -183,4 +219,21 @@ def accept_loan(request):
 		messages.error(request, "No valid loan id provided")
 	if not accepted:
 		messages.error(request, "Please confirm accepting the loan")
+	return redirect('core:home')
+
+@login_required
+def reject_loan(request, loan_id=0):
+	loan = models.Loan.objects.filter(loan_id=loan_id)
+	if not loan:
+		messages.error(request, "No valid loan id provided")
+		return redirect('core:home')
+	loan = loan[0]
+	if loan.borrowing_user == request.user:
+		messages.error(request, "Cannot reject own loan application")
+		return redirect('core:home')
+	rejected_loan = models.RejectedLoan()
+	rejected_loan.loan = loan
+	rejected_loan.rejecting_user = request.user
+	rejected_loan.save()
+	messages.info(request, f"Rejected loan #{loan_id}")
 	return redirect('core:home')

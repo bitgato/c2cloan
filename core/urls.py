@@ -20,6 +20,9 @@ urlpatterns = [
 	path('accounts/profile/my-offers/<int:page>', views.my_offers, name='my_offers_page'),
 	path('accounts/profile/sent-offers', views.sent_offers, name='sent_offers'),
 	path('accounts/profile/sent-offers/<int:page>', views.sent_offers, name='sent_offers_page'),
+	path('accounts/profile/salary-slips/', views.salary_slips, name='salary_slips'),
 	path('modify-loan/', views.modify_loan, name='modify_loan'),
 	path('accept-loan/', views.accept_loan, name='accept_loan'),
+	path('reject-loan/', views.reject_loan, name='reject_loan'),
+	path('reject-loan/<int:loan_id>', views.reject_loan, name='reject_loan'),
 ]

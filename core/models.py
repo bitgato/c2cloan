@@ -48,6 +48,17 @@ class ModifiedLoan(models.Model):
 	borrowing_user = models.ForeignKey(User, related_name='%(class)s_borrowing', on_delete=models.CASCADE)
 	offering_user = models.ForeignKey(User, related_name='%(class)s_offering', null=True, on_delete=models.CASCADE)
 
+class RejectedLoan(models.Model):
+	rejected_loan_id = models.BigAutoField(primary_key=True)
+	loan = models.ForeignKey(Loan, on_delete=models.CASCADE)
+	rejecting_user = models.ForeignKey(User, null=True, on_delete=models.CASCADE)
+
+class SalarySlip(models.Model):
+	slip_id = models.BigAutoField(primary_key=True)
+	user = models.ForeignKey(User, on_delete=models.CASCADE)
+	upload_date = models.DateField(auto_now_add=True)
+	image = models.ImageField('Salary slip', upload_to='salary_slip', blank=True)
+
 class Profile(models.Model):
 	profile_id = models.BigAutoField(primary_key=True)
 	user = models.OneToOneField(User, on_delete=models.CASCADE)

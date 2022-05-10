@@ -287,3 +287,6 @@ input[type=checkbox]:checked {
 .no-min-height {
 	min-height: 0 !important;
 }
+.table-dark tr th {
+	background-color: var(--back);
+}

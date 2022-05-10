@@ -20,7 +20,7 @@
     <div class="col text-end">
 		{% block extra_header_actions %}
     	<a class="button accept" href="{% url 'core:accept_loan' %}?id={{ loan.loan_id }}">Accept</a>
-    	<a class="button reject" href="#">Reject</a>
+    	<a class="button reject" href="{% url 'core:reject_loan' loan.loan_id %}">Reject</a>
     {% endblock %}
     {% block default_header_action %}
     	<a class="button" href="
