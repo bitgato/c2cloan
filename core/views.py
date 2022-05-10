@@ -81,6 +81,17 @@ def my_loans(request, page=1):
 	return render(request, "my_loans.html", context)
 
 @login_required
+def lent_loans(request, page=1):
+	loans = models.Loan.objects.filter(lending_user=request.user)
+	loans = list(reversed(loans))
+	paginator = Paginator(loans, per_page=10)
+	loans = paginator.get_page(page)
+	context = {
+		'loans': loans
+	}
+	return render(request, "lent_loans.html", context)
+
+@login_required
 def my_offers(request, page=1):
 	offers = models.ModifiedLoan.objects.filter(borrowing_user=request.user)
 	offers = list(reversed(offers))
