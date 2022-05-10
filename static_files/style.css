@@ -112,19 +112,24 @@ input[type=checkbox]:checked {
 	padding-bottom: 10px !important;
 	text-align: center;
 }
-.btn-github,
 .btn-google {
 	border: solid 1px black;
 }
-.btn-github:hover,
 .btn-google:hover {
 	background-color: var(--gray);
 }
+.about-links a {
+	display: inline-block;
+}
 .btn-heroku,
 .btn-github {
-	height: 50px;
+	height: auto;
 	align-items: center;
 	margin-right: 10px;
+	color: black;
+}
+.btn-github:hover {
+	color: black;
 }
 .btn-heroku > img {
 	margin-top: 3px;
