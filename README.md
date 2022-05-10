@@ -1,5 +1,7 @@
 <p align="center">
   <img width="100" src="static_files/assets/logo_dark.png">
+  <br>
+  <a href="https://www.codefactor.io/repository/github/bitgato/c2cloan"><img src="https://www.codefactor.io/repository/github/bitgato/c2cloan/badge" alt="CodeFactor" /></a>
 </p>
 <h1 align="center">c2cloan</h1>
 <p align="center">
@@ -12,6 +14,11 @@ Sign up and apply for a loan that other users can see. Other users have choices
 for accepting, rejecting or modifiying your loan application. If you modify an
 application and offer it, the original applicant has the option to
 accept/reject the new terms.
+
+### screenshot
+<p align="center">
+  <img src="static_files/assets/screenshot.png">
+</p>
 
 ### tools used
 * Python + Django
