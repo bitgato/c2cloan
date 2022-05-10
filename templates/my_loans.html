@@ -3,9 +3,6 @@
 {% block page_heading %}My Loans{% endblock %}
 {% block extra_header_actions %}
 {% endblock %}
-{% block header_action_text %}
-Check Offers
-{% endblock %}
 {% block empty_message %}
 <div class="empty-mssg">
 	<p>Nothing here. <a href="{% url 'core:apply_loan' %}">Apply</a> for your first loan</p>
@@ -20,4 +17,11 @@ Check Offers
 	<a class="btn-link" href="{% block next_page_url %}{% url 'core:my_loans_page' loans.next_page_number %}{% endblock %}">Next Page</a>
 	{% endif %}
 </div>
+{% endblock %}
+{% block default_header_action %}
+	<a class="button" href="
+	{% block header_action %}
+	{% url 'core:loan_offers' %}?id={{ loan.loan_id }}
+	{% endblock %}
+	">Check Offers</a>
 {% endblock %}

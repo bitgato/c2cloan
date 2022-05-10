@@ -141,6 +141,21 @@ def my_offers(request, page=1):
 	return render(request, "my_offers.html", context)
 
 @login_required
+def loan_offers(request, page=1):
+	loan_id = request.GET.get('id')
+	if (not loan_id) or (not loan_id.isdigit()):
+		messages.error(request, "No valid loan id provided")
+		return redirect('core:my_loans')
+	offers = models.ModifiedLoan.objects.filter(loan=loan_id)
+	offers = list(reversed(offers))
+	paginator = Paginator(offers, per_page=10)
+	offers = paginator.get_page(page)
+	context = {
+		'offers': offers
+	}
+	return render(request, "loan_offers.html", context)
+
+@login_required
 def sent_offers(request, page=1):
 	offers = models.ModifiedLoan.objects.filter(offering_user=request.user)
 	offers = list(reversed(offers))
@@ -172,6 +187,9 @@ def modify_loan(request):
 			messages.error(request, f"No loan application with id #{loan_id}")
 			return redirect('core:home')
 		loan = loan[0]
+		if loan.borrowing_user == request.user:
+			messages.error(request, "Cannot modify own loan application")
+			return redirect('core:home')
 		l_form = ModifyLoanForm(instance=loan)
 		context = {
 			'id': loan_id,
@@ -210,7 +228,7 @@ def accept_loan(request):
 			return redirect('core:home')
 		loan = loan[0]
 		if loan.borrowing_user == request.user:
-			messages.error(request, "Cannot accept own loan")
+			messages.error(request, "Cannot accept own loan application")
 			return redirect('core:home')
 		l_form = AcceptLoanForm(instance=loan)
 		context = {
